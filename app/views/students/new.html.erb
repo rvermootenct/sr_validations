@@ -1,0 +1,19 @@
+<h1>New Student</h1>
+
+<%= form_for :students, url: students_path, class: "mt-4" do |f| %>
+  <% @students.each do |student| %>
+    <%= f.fields_for 'students[]', student do |s| %>
+      <div class="col-6 form-group <%= validation_status student, :first_name %>" id="<%= "student_#{@students.index(student)}" %>">
+        <%= s.label :first_name, "First Name" %>
+        <%= s.text_field :first_name, class: "form-control form-control-lg", data: { reflex: "debounced:input->Student#validate", reflex_permanent: true } %>
+        <%= validation_message student, :first_name %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <button data-reflex="click->Student#add">Add</button>
+
+  <%= f.submit %>
+<% end %>
+
+<%= link_to 'Back', students_path %>
