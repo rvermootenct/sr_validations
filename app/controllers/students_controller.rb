@@ -14,7 +14,8 @@ class StudentsController < ApplicationController
 
   # GET /students/new
   def new
-    @students = session[:students] ||= Array.new(5) {Student.new}
+    seats_available = 3
+    @students = session[:students] ||= Array.new(seats_available) {Student.new}
   end
 
   # GET /students/1/edit
